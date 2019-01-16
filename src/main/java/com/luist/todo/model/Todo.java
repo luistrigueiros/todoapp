@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -30,6 +31,11 @@ public class Todo {
     @NotNull
     private boolean done;
 
+    @NotNull
+    private LocalDateTime creationDateTime = LocalDateTime.now();
+
+    @NotNull
+    private LocalDateTime lastModifyDateTime;
 
     public void toggleDone() {
         setDone(!isDone());
