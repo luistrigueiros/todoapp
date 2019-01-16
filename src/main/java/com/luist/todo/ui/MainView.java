@@ -1,6 +1,6 @@
-package com.example.demojava.ui;
+package com.luist.todo.ui;
 
-import com.example.demojava.MessageBean;
+import com.luist.todo.service.MessageBean;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -8,7 +8,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route
+@Route("app")
 @PWA(name = "Project Base for Vaadin Flow with Spring", shortName = "Project Base")
 public class MainView extends VerticalLayout {
 

@@ -1,4 +1,4 @@
-package com.example.demojava.config;
+package com.luist.todo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
