@@ -26,7 +26,7 @@ import static java.lang.String.format;
  * how to configure the security, go to
  * https://docs.spring.io/spring-security/site/docs/current/reference/html/jc.html
  */
-@Configuration
+//@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
