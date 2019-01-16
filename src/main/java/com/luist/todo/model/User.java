@@ -1,12 +1,13 @@
 package com.luist.todo.model;
 
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
 
+@EqualsAndHashCode
 public class User implements UserDetails {
 
     public static final String USE_APP_ROLE = "USE-APP-ROLE";
@@ -21,10 +22,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> result = new ArrayList<GrantedAuthority>();
-        result.add((GrantedAuthority) () -> USE_APP_ROLE);
-
-        return result;
+        return new ArrayList<GrantedAuthority>() {{
+            add((GrantedAuthority) () -> USE_APP_ROLE);
+        }};
     }
 
     @Override
@@ -56,28 +56,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(username);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        User other = (User) obj;
-        if (username == null) {
-            if (other.username != null)
-                return false;
-        } else if (!username.equals(other.username))
-            return false;
-        return true;
-    }
-
-
 }
