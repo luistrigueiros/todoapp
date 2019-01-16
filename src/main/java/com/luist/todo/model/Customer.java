@@ -16,7 +16,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class Customer {
+public class Customer implements PersistableEntity {
 
     @Id
     @GeneratedValue

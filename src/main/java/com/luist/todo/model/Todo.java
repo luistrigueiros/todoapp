@@ -1,6 +1,5 @@
 package com.luist.todo.model;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,12 +17,11 @@ import java.time.LocalDateTime;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
-@AllArgsConstructor
-public class Todo {
+public class Todo implements PersistableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @NotNull
     private String description;
@@ -38,6 +36,6 @@ public class Todo {
 //    private LocalDateTime lastModifyDateTime;
 
     public void toggleDone() {
-        setDone(!isDone());
+        done = !done;
     }
 }

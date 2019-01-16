@@ -9,8 +9,12 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.spring.annotation.SpringComponent;
+import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.util.StringUtils;
 
+@UIScope
+@SpringComponent
 public class CustomerPanel extends VerticalLayout {
     private final CustomerRepository repo;
 
@@ -46,10 +50,10 @@ public class CustomerPanel extends VerticalLayout {
         filter.addValueChangeListener(e -> listCustomers(e.getValue()));
 
         // Connect selected Customer to editor or hide if none is selected
-        grid.asSingleSelect().addValueChangeListener(e -> editor.editCustomer(e.getValue()));
+        grid.asSingleSelect().addValueChangeListener(e -> editor.startEditing(e.getValue()));
 
         // Instantiate and edit new Customer the new button is clicked
-        addNewBtn.addClickListener(e -> editor.editCustomer(new Customer("", "")));
+        addNewBtn.addClickListener(e -> editor.startEditing(new Customer("", "")));
 
         // Listen changes made by the editor, refresh data from backend
         editor.setChangeHandler(() -> {
