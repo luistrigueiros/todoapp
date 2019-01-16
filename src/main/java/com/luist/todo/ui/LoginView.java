@@ -7,7 +7,7 @@ import com.vaadin.flow.router.Route;
 @Route("login")
 public class LoginView extends VerticalLayout {
     public LoginView() {
-        Label label = new Label("This is the login view");
+        Label label = new Label("<<This is the login view>>");
         add(label);
     }
 }
