@@ -26,16 +26,16 @@ public class Todo {
     private long id;
 
     @NotNull
-    private String text;
+    private String description;
 
     @NotNull
     private boolean done;
 
     @NotNull
-    private LocalDateTime creationDateTime = LocalDateTime.now();
+    private LocalDateTime doneDateTime = LocalDateTime.now();
 
-    @NotNull
-    private LocalDateTime lastModifyDateTime;
+//    @NotNull
+//    private LocalDateTime lastModifyDateTime;
 
     public void toggleDone() {
         setDone(!isDone());
