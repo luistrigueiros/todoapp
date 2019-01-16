@@ -16,8 +16,16 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'war'
 
 group = 'com.luist'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 sourceCompatibility = '1.8'
+
+war {
+	archiveName = 'todoapp.war'
+}
+
+bootWar {
+	archiveName = 'todoapp.war'
+}
 
 repositories {
 	mavenCentral()
