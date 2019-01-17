@@ -1,7 +1,9 @@
 package com.luist.todo.config;
 
 import com.luist.todo.model.Customer;
+import com.luist.todo.model.Todo;
 import com.luist.todo.service.CustomerRepository;
+import com.luist.todo.service.TodoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -45,6 +47,18 @@ public class InitialDataLoaderConfig {
                 log.info(bauer.toString());
             }
             log.info("");
+        };
+    }
+
+    @Bean
+    public CommandLineRunner loadTodo(TodoRepository repository) {
+        return args -> {
+            Todo entity = new Todo();
+            entity.setDescription("Example task to do");
+            repository.save(entity);
+            log.info("Todo found with findAll():");
+            log.info("-------------------------------");
+            repository.findAll().forEach( todo -> log.info(todo.toString()));
         };
     }
 

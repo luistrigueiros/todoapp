@@ -42,6 +42,7 @@ dependencies {
 	implementation 'com.vaadin:vaadin-spring-boot-starter'
 	runtimeOnly 'com.h2database:h2'
 	compileOnly 'org.projectlombok:lombok'
+	compile("org.checkerframework.annotatedlib:guava:27.0.1-jre")
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
