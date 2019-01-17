@@ -6,6 +6,7 @@ import com.luist.todo.service.TodoRepository;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -22,7 +23,11 @@ public class TodoPanel extends VerticalLayout {
     public TodoPanel(TodoRepository repository, TodoEditor editor) {
         this.repository = repository;
         this.editor = editor;
-        this.addNewBtn = new Button("New item", VaadinIcon.PLUS.create());
+        this.addNewBtn = new Button("New Todo", VaadinIcon.PLUS.create());
+
+        // build layout
+        HorizontalLayout actions = new HorizontalLayout(addNewBtn);
+        add(actions, grid, editor);
 
         grid.setHeight("300px");
         grid.setColumns("id", "done", "description");

@@ -2,13 +2,9 @@ package com.luist.todo.ui;
 
 import com.luist.todo.model.Todo;
 import com.luist.todo.service.TodoRepository;
-import com.vaadin.flow.component.KeyNotifier;
 import com.vaadin.flow.component.checkbox.Checkbox;
-import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.converter.StringToDateConverter;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 
@@ -21,7 +17,7 @@ public class TodoEditor extends BaseEntityEditor<Todo> {
 
     public TodoEditor(TodoRepository repository) {
         super(repository, new Binder<>(Todo.class));
-        add(description, done);
+        add(description, done, actions);
     }
 
     @Override
@@ -35,6 +31,6 @@ public class TodoEditor extends BaseEntityEditor<Todo> {
 
     @Override
     protected void onEditStarted() {
-
+        description.focus();
     }
 }

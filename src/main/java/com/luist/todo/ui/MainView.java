@@ -8,7 +8,7 @@ import com.vaadin.flow.server.PWA;
 @PWA(name = "Sample TodoApp based on Vaadin Flow and Spring", shortName = "TodoApp")
 public class MainView extends VerticalLayout {
 
-    public MainView(CustomerPanel panel) {
+    public MainView(TodoPanel panel) {
         add(panel);
     }
 }
