@@ -11,8 +11,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-@UIScope
-@SpringComponent
+//@UIScope
+//@SpringComponent
 public class LoginForm extends FormLayout {
     private TextField username = new TextField("Username", "type in your username");
     private PasswordField password = new PasswordField("Password", "type in your password");
