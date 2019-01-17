@@ -1,0 +1,16 @@
+# todoapp
+Example Todo app done with Vaadin 12 and Spring security
+
+
+== How to run the app
+
+On checkout run the app by executing the following command
+
+[source,bash]
+----
+λ .\gradlew bootRun
+----
+
+
+
+
