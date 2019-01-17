@@ -12,6 +12,8 @@ import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.util.StringUtils;
 
+import static com.google.common.base.Preconditions.checkState;
+
 @UIScope
 @SpringComponent
 public class TodoPanel extends VerticalLayout {
@@ -42,7 +44,7 @@ public class TodoPanel extends VerticalLayout {
         // Listen changes made by the editor, refresh data from backend
         editor.setChangeHandler(() -> {
             editor.setVisible(false);
-            //listCustomers(filter.getValue());
+            listTodos(null);
         });
         listTodos(null);
     }
@@ -51,7 +53,7 @@ public class TodoPanel extends VerticalLayout {
         if (StringUtils.isEmpty(filterText)) {
             grid.setItems(repository.findAll());
         } else {
-            Preconditions.checkState(false, "Yet to implement");
+            checkState(false, "Yet to implement");
             //grid.setItems(repo.findByLastNameStartsWithIgnoreCase(filterText));
         }
     }

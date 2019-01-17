@@ -24,21 +24,21 @@ abstract class BaseEntityEditor<T extends PersistableEntity> extends VerticalLay
         void onChange();
     }
 
-    protected final JpaRepository<T, Long> repository;
+    private final JpaRepository<T, Long> repository;
     /**
      * The currently edited object
      */
-    protected T objectOnEdit;
+    private T objectOnEdit;
 
 
-    protected ChangeHandler changeHandler;
+    private ChangeHandler changeHandler;
 
-    protected final Binder<T> binder;
+    private final Binder<T> binder;
 
     private Button save = new Button("Save", VaadinIcon.CHECK.create());
     private Button cancel = new Button("Cancel");
     private Button delete = new Button("Delete", VaadinIcon.TRASH.create());
-    protected HorizontalLayout actions = new HorizontalLayout(save, cancel, delete);
+    HorizontalLayout actions = new HorizontalLayout(save, cancel, delete);
 
     protected BaseEntityEditor(JpaRepository<T, Long> repository, Binder<T> binder) {
         this.repository = repository;
@@ -60,7 +60,7 @@ abstract class BaseEntityEditor<T extends PersistableEntity> extends VerticalLay
         setVisible(false);
     }
 
-    public final void startEditing(T objectToEdit) {
+    final void startEditing(T objectToEdit) {
         if (objectToEdit == null) {
             setVisible(false);
             return;
@@ -78,13 +78,12 @@ abstract class BaseEntityEditor<T extends PersistableEntity> extends VerticalLay
             objectOnEdit = objectToEdit;
         }
         cancel.setVisible(persisted);
-
-        binder.setBean(objectToEdit);
+        binder.setBean(objectOnEdit);
         setVisible(true);
         onEditStarted();
     }
 
-    public void setChangeHandler(ChangeHandler h) {
+    void setChangeHandler(ChangeHandler h) {
         // ChangeHandler is notified when either save or delete
         // is clicked
         changeHandler = h;
@@ -103,7 +102,7 @@ abstract class BaseEntityEditor<T extends PersistableEntity> extends VerticalLay
     /**
      * Init this editor binder
      *
-     * @param binder
+     * @param binder the binder been configured
      */
     protected abstract void initBinder(Binder<T> binder);
 
