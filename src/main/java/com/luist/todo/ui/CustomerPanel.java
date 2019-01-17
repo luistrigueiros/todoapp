@@ -9,16 +9,20 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.spring.annotation.SpringComponent;
+import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.util.StringUtils;
 
+@UIScope
+@SpringComponent
 public class CustomerPanel extends VerticalLayout {
     private final CustomerRepository repo;
 
     private final CustomerEditor editor;
 
-    final Grid<Customer> grid;
+    private final Grid<Customer> grid;
 
-    final TextField filter;
+    private final TextField filter;
 
     private final Button addNewBtn;
 
@@ -61,7 +65,7 @@ public class CustomerPanel extends VerticalLayout {
         listCustomers(null);
     }
 
-    void listCustomers(String filterText) {
+    private void listCustomers(String filterText) {
         if (StringUtils.isEmpty(filterText)) {
             grid.setItems(repo.findAll());
         }
