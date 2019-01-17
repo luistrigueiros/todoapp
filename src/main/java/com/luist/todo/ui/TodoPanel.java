@@ -32,7 +32,7 @@ public class TodoPanel extends VerticalLayout {
         add(actions, grid, editor);
 
         grid.setHeight("300px");
-        grid.setColumns("id", "done", "description");
+        grid.setColumns("id", "done", "lastModify", "description");
         grid.getColumnByKey("id").setWidth("50px").setFlexGrow(0);
 
         // Connect selected Todo to editor or hide if none is selected

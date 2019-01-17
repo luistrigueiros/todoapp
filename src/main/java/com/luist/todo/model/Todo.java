@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Getter
@@ -28,12 +29,10 @@ public class Todo implements PersistableEntity {
     private boolean done;
 
     @NotNull
-    private LocalDateTime doneDateTime = LocalDateTime.now();
+    private String lastModify;
 
-//    @NotNull
-//    private LocalDateTime lastModifyDateTime;
 
-    public void toggleDone() {
-        done = !done;
+    public void updateLastModify() {
+        lastModify = DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now());
     }
 }

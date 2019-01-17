@@ -53,9 +53,10 @@ public class InitialDataLoaderConfig {
     @Bean
     public CommandLineRunner loadTodo(TodoRepository repository) {
         return args -> {
-            Todo entity = new Todo();
-            entity.setDescription("Example task to do");
-            repository.save(entity);
+            Todo todo1 = new Todo();
+            todo1.setDescription("Example task to do");
+            todo1.updateLastModify();
+            repository.save(todo1);
             log.info("Todo found with findAll():");
             log.info("-------------------------------");
             repository.findAll().forEach( todo -> log.info(todo.toString()));

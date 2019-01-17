@@ -28,7 +28,7 @@ abstract class BaseEntityEditor<T extends PersistableEntity> extends VerticalLay
     /**
      * The currently edited object
      */
-    private T objectOnEdit;
+    protected T objectOnEdit;
 
 
     private ChangeHandler changeHandler;
@@ -55,7 +55,7 @@ abstract class BaseEntityEditor<T extends PersistableEntity> extends VerticalLay
         // wire action buttons to save, delete and reset
         save.addClickListener(e -> save());
         delete.addClickListener(e -> delete());
-        cancel.addClickListener(e -> startEditing(objectOnEdit));
+        cancel.addClickListener(e -> startEditing(null));
 
         setVisible(false);
     }
@@ -89,12 +89,12 @@ abstract class BaseEntityEditor<T extends PersistableEntity> extends VerticalLay
         changeHandler = h;
     }
 
-    private void delete() {
+    protected void delete() {
         repository.delete(objectOnEdit);
         changeHandler.onChange();
     }
 
-    private void save() {
+    protected void save() {
         repository.save(objectOnEdit);
         changeHandler.onChange();
     }
@@ -112,7 +112,7 @@ abstract class BaseEntityEditor<T extends PersistableEntity> extends VerticalLay
     protected abstract void onEditStarted();
 
     @PostConstruct
-    public void postInit() {
+    public final void postInit() {
         initBinder(binder);
     }
 }
