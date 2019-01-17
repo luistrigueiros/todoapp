@@ -1,23 +1,22 @@
 package com.luist.todo.ui;
 
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
 @Route("login")
-public class LoginView extends VerticalLayout {
-    public LoginView() {
-        Label label = new Label("<<This is the login view>>");
-        add(label);
-        add(buildUsername());
+public class LoginView extends VerticalLayout implements LoginForm.Handler {
+    private LoginForm loginForm;
+    private Dialog dialog = new Dialog();
+
+    public LoginView(LoginForm loginForm) {
+        this.loginForm = loginForm;
+        dialog.add(loginForm);
+        dialog.open();
     }
 
-    private TextField buildUsername() {
-        TextField username = new TextField();
-        username.setLabel("Username");
-        username.setPlaceholder("placeholder text");
-        return username;
+    @Override
+    public void onAuthentication() {
+        dialog.close();
     }
-
 }
