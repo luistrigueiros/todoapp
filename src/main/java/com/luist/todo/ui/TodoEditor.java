@@ -8,6 +8,7 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.converter.StringToDateConverter;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 
@@ -16,11 +17,20 @@ import com.vaadin.flow.spring.annotation.UIScope;
 public class TodoEditor extends BaseEntityEditor<Todo> {
     TextField description = new TextField("Description");
     Checkbox done = new Checkbox("Done");
-    DatePicker doneDateTime = new DatePicker("Done Date");
+    //DatePicker doneDateTime = new DatePicker("Done Date");
 
     public TodoEditor(TodoRepository repository) {
         super(repository, new Binder<>(Todo.class));
-        add(description, done, doneDateTime);
+        add(description, done);
+    }
+
+    @Override
+    protected void initBinder(Binder<Todo> binder) {
+        binder.forField(description).bind(Todo::getDescription, Todo::setDescription);
+        binder.forField(done).bind(Todo::isDone, Todo::setDone);
+//        binder.forField(doneDateTime)
+//                .withConverter(new StringToDateConverter())
+//                .bind("doneDateTime");
     }
 
     @Override

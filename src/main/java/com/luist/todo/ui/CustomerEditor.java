@@ -23,6 +23,12 @@ public class CustomerEditor extends BaseEntityEditor<Customer> {
     }
 
     @Override
+    protected void initBinder(Binder<Customer> binder) {
+        binder.forField(firstName).bind(Customer::getFirstName, Customer::setFirstName);
+        binder.forField(lastName).bind(Customer::getLastName, Customer::setLastName);
+    }
+
+    @Override
     protected void onEditStarted() {
         // Focus first name initially
         firstName.focus();

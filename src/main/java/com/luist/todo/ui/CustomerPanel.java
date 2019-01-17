@@ -9,12 +9,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
-import com.vaadin.flow.spring.annotation.SpringComponent;
-import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.util.StringUtils;
 
-@UIScope
-@SpringComponent
 public class CustomerPanel extends VerticalLayout {
     private final CustomerRepository repo;
 
@@ -65,7 +61,6 @@ public class CustomerPanel extends VerticalLayout {
         listCustomers(null);
     }
 
-    // tag::listCustomers[]
     void listCustomers(String filterText) {
         if (StringUtils.isEmpty(filterText)) {
             grid.setItems(repo.findAll());
@@ -74,6 +69,4 @@ public class CustomerPanel extends VerticalLayout {
             grid.setItems(repo.findByLastNameStartsWithIgnoreCase(filterText));
         }
     }
-    // end::listCustomers[]
-
 }

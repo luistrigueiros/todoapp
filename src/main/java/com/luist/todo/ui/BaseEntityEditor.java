@@ -5,10 +5,14 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyNotifier;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.binder.Binder;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import javax.annotation.PostConstruct;
+import java.util.Optional;
 
 /**
  * The base reuseable code related to editing a persistent entity
@@ -39,8 +43,6 @@ abstract class BaseEntityEditor<T extends PersistableEntity> extends VerticalLay
     protected BaseEntityEditor(JpaRepository<T, Long> repository, Binder<T> binder) {
         this.repository = repository;
         this.binder = binder;
-        // bind using naming convention
-        binder.bindInstanceFields(this);
 
         // Configure and style components
         setSpacing(true);
@@ -59,10 +61,28 @@ abstract class BaseEntityEditor<T extends PersistableEntity> extends VerticalLay
     }
 
     public final void startEditing(T objectToEdit) {
-        if (isNotEditable(objectToEdit)) return;
+        if (objectToEdit == null) {
+            setVisible(false);
+            return;
+        }
+        final boolean persisted = objectToEdit.getId() != null;
+        if (persisted) {
+            // Find fresh entity for editing
+            Optional<T> found = repository.findById(objectToEdit.getId());
+            if (found.isPresent()) {
+                objectOnEdit = found.get();
+            } else {
+                Notification.show("This an error should not happen, persistent entity not found in db!");
+            }
+        } else {
+            objectOnEdit = objectToEdit;
+        }
+        cancel.setVisible(persisted);
+
+        binder.setBean(objectToEdit);
+        setVisible(true);
         onEditStarted();
     }
-
 
     public void setChangeHandler(ChangeHandler h) {
         // ChangeHandler is notified when either save or delete
@@ -81,35 +101,19 @@ abstract class BaseEntityEditor<T extends PersistableEntity> extends VerticalLay
     }
 
     /**
-     * Returns true if can not edit object
+     * Init this editor binder
      *
-     * @param objectToEdit
-     * @return
+     * @param binder
      */
-    private boolean isNotEditable(T objectToEdit) {
-        if (objectToEdit == null) {
-            setVisible(false);
-            return true;
-        }
-        final boolean persisted = objectToEdit.getId() != null;
-        if (persisted) {
-            // Find fresh entity for editing
-            repository.findById(objectToEdit.getId())
-                    .ifPresent(found -> objectOnEdit = found);
-        } else {
-            objectOnEdit = objectToEdit;
-        }
-        cancel.setVisible(persisted);
-        // Bind customer properties to similarly named fields
-        // Could also use annotation or "manual binding" or programmatically
-        // moving values from fields to entities before saving
-        binder.setBean(objectOnEdit);
-        setVisible(true);
-        return false;
-    }
+    protected abstract void initBinder(Binder<T> binder);
 
     /**
      * Actions to perform on entering edit mode
      */
     protected abstract void onEditStarted();
+
+    @PostConstruct
+    public void postInit() {
+        initBinder(binder);
+    }
 }
