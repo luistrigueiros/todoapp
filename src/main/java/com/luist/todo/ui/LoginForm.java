@@ -11,8 +11,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-//@UIScope
-//@SpringComponent
+@UIScope
+@SpringComponent
 public class LoginForm extends FormLayout {
     private TextField username = new TextField("Username", "type in your username");
     private PasswordField password = new PasswordField("Password", "type in your password");
@@ -24,9 +24,9 @@ public class LoginForm extends FormLayout {
 
     private Handler handler;
 
-    public LoginForm(AuthenticationManager authenticationManager) {
+    public LoginForm() {
         add(username, password, login);
-        login.addClickListener(event -> authenticate(authenticationManager));
+        //login.addClickListener(event -> authenticate(authenticationManager));
     }
 
     private void authenticate(AuthenticationManager authenticationManager) {
@@ -34,7 +34,7 @@ public class LoginForm extends FormLayout {
                 = new UsernamePasswordAuthenticationToken(username.getValue(), password.getValue());
         Authentication authenticate = authenticationManager.authenticate(authReq);
         SecurityContextHolder.getContext().setAuthentication(authenticate);
-        if(handler != null) {
+        if (handler != null) {
             handler.onAuthentication();
         }
     }
