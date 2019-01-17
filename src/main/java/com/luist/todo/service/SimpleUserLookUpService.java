@@ -4,7 +4,7 @@ import com.luist.todo.model.User;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthUserLookUpService {
+public class SimpleUserLookUpService {
 
 	User findUser(String username) {
 		User found = null;

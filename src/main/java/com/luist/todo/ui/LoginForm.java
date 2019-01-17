@@ -6,7 +6,7 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,12 +24,12 @@ public class LoginForm extends FormLayout {
 
     private Handler handler;
 
-    public LoginForm() {
+    public LoginForm(AuthenticationProvider authenticationProvider) {
         add(username, password, login);
-        //login.addClickListener(event -> authenticate(authenticationManager));
+        login.addClickListener(event -> authenticate(authenticationProvider));
     }
 
-    private void authenticate(AuthenticationManager authenticationManager) {
+    private void authenticate(AuthenticationProvider authenticationManager) {
         UsernamePasswordAuthenticationToken authReq
                 = new UsernamePasswordAuthenticationToken(username.getValue(), password.getValue());
         Authentication authenticate = authenticationManager.authenticate(authReq);
