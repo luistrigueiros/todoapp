@@ -3,6 +3,7 @@ package com.luist.todo.config;
 import com.luist.todo.model.User;
 import com.luist.todo.service.SimpleAuthenticationManager;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -23,7 +24,7 @@ import static java.lang.String.format;
  * how to configure the security, go to
  * https://docs.spring.io/spring-security/site/docs/current/reference/html/jc.html
  */
-//@Configuration
+@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private SimpleAuthenticationManager authenticationManager;
@@ -46,11 +47,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(ALLOWED_BY_DEFAULT).permitAll()
                 .anyRequest().authenticated()
-                .antMatchers("/app").access(userWithUseAppRoleExpression()).and()
+                .antMatchers("/main").access(userWithUseAppRoleExpression()).and()
                 .formLogin()
                 .loginPage("/login?auth")
                 .permitAll()
-                .defaultSuccessUrl("/app", true)
+                .defaultSuccessUrl("/main", true)
                 .and()
                 .sessionManagement()
                 .sessionAuthenticationStrategy(sessionControlAuthenticationStrategy());
