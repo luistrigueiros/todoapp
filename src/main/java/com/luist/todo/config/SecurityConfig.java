@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(final AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationManager);
     }
 
@@ -77,8 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public SessionRegistry sessionRegistry() {
-        SessionRegistry sessionRegistry = new SessionRegistryImpl();
-        return sessionRegistry;
+        return new SessionRegistryImpl();
     }
 
 }
